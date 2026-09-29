@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Kriti local/runtime data
+Database/nova_memory.db
+Database/backups/
+
+# Local configuration / runtime files
+*.log
+
+# Local audio recordings
+*.wav
+*.mp3
+
+# Python temporary files
+*.tmp
