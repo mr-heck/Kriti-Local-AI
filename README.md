@@ -1,223 +1,135 @@
-# Kriti — Local AI Companion
+# Kriti
 
-Kriti is a local AI companion that I'm building from scratch as an experiment in combining **LLMs, memory, context, emotions, voice, and character systems** into a single interactive software character.
+Kriti is a local AI companion that I'm building from scratch.
 
-The longer-term goal is to evolve Kriti into a **desktop-pet AI** and use what I learn from the project to explore how similar systems could be applied to **game development and AI-driven game characters**.
+The project started as an experiment to see how far I could take a local AI beyond simply sending a message to an LLM and getting a reply. I'm currently working on things like memory, context, emotions, voice interaction and personality as separate parts of the system.
 
-This is an ongoing personal project, so the architecture and features are still evolving.
+The bigger idea is to eventually turn Kriti into a desktop-pet AI, and later use what I learn from this project for AI-driven systems in my game development work.
 
----
+This is still very much a work in progress.
 
-## Current Progress
+## What Kriti can do right now
 
-Kriti is already able to go beyond a basic question-and-answer chatbot.
+Kriti can already have conversations with me using a locally running LLM.
 
-### 💬 Conversation
+She also has a persistent memory system. Instead of forgetting everything after a conversation ends, the system can identify potentially useful information, extract it, assign importance to it and store it. Relevant memories can then be retrieved and provided as context when they are useful in a later conversation.
 
-Kriti can have conversations using a **locally running LLM**, allowing the core AI interaction to work without relying entirely on cloud-based AI services.
+I've also been working on a separate emotion system. At the moment, emotions are detected without making another LLM call for every response. The idea is to keep things like emotional state outside the main language model so that I have more control over how the character behaves.
 
-### 🧠 Persistent Memory
+Kriti can also:
 
-Kriti has a memory system that can:
+* Use voice input and text-to-speech
+* Maintain a custom personality
+* Use previous memories as conversational context
+* Detect conversational emotions and tone
+* Run locally on my own machine
+* Use separate systems for memory, emotion, personality and conversation
+* Work through a desktop/web-based interface
 
-* Detect potentially useful information from conversations
-* Extract memories from natural conversation
-* Assign importance to memories
-* Store relevant information persistently
-* Retrieve previous memories when they are useful
-* Use retrieved memories as context for future conversations
+## How I'm building it
 
-The goal is to make conversations feel connected instead of treating every message as a completely isolated interaction.
+One thing I'm trying to avoid is putting the entire character inside one huge prompt.
 
-### 🎭 Emotion System
+The LLM is mainly responsible for understanding the conversation and generating a response. Other parts of Kriti handle things such as memory, emotion and personality.
 
-Kriti also has a separate emotion-processing system.
-
-Instead of asking the LLM to determine every emotional state, the current system uses a dedicated non-LLM approach to detect conversational emotion and tone.
-
-This allows emotion to become another piece of context that can influence how Kriti responds.
-
-### 🎙️ Voice Interaction
-
-Kriti supports voice input and voice output, allowing interaction through speech instead of relying entirely on text.
-
-### 🧩 Personality & Character System
-
-Kriti has her own personality and character configuration that is kept separate from the core language model.
-
-This makes it possible to modify the character without rebuilding the entire AI system.
-
-### 🖥️ Local Interface
-
-The project includes a desktop/web-based interface for interacting with Kriti.
-
-The interface and backend are being developed separately so that the underlying AI systems can eventually support different visual implementations.
-
----
-
-## General Architecture
-
-The project is being built as a collection of independent systems rather than putting everything into a single LLM prompt.
-
-A simplified view is:
+So, roughly, a conversation looks something like this:
 
 ```text
-                    User
-                      │
-                      ▼
-              ┌──────────────┐
-              │  Interaction │
-              └──────┬───────┘
-                     │
-          ┌──────────┴──────────┐
-          ▼                     ▼
-   ┌─────────────┐       ┌─────────────┐
-   │   Emotion   │       │   Memory    │
-   │   System    │       │   System    │
-   └──────┬──────┘       └──────┬──────┘
-          │                     │
-          └──────────┬──────────┘
-                     ▼
-              ┌─────────────┐
-              │    Context  │
-              └──────┬──────┘
-                     ▼
-              ┌─────────────┐
-              │  Local LLM  │
-              └──────┬──────┘
-                     ▼
-              ┌─────────────┐
-              │ Personality │
-              │  & Response │
-              └──────┬──────┘
-                     ▼
-                  Kriti
+User message
+     |
+     +---- Memory system
+     |
+     +---- Emotion system
+     |
+     +---- Other context
+     |
+     v
+   Local LLM
+     |
+     v
+  Kriti's response
 ```
 
-The architecture will continue changing as new systems are added and existing ones are improved.
+This structure is still changing as I work on the project. I'm experimenting with different ways of connecting these systems without making everything dependent on the LLM.
 
----
+## Technologies
 
-## Technology
+The project currently uses:
 
-Current technologies and tools include:
+* Python
+* Ollama
+* Local LLMs
+* SQLite
+* Tkinter / web-based UI
+* Voice input and text-to-speech
 
-* **Python**
-* **Ollama**
-* **Local LLMs**
-* **SQLite**
-* **Tkinter / Web-based UI**
-* **Voice input & text-to-speech**
-* Modular Python-based backend systems
+The exact model and implementation will probably change as the project develops.
 
-The exact models and implementation details may change as development continues.
+## Why I'm building Kriti
 
----
+I'm interested in the idea of software characters that can actually build some context over time instead of behaving like a completely new chatbot every time you open them.
 
-## Why I'm Building It
+Memory is one part of that.
 
-The main purpose of Kriti isn't simply to build another chatbot.
+Emotion, personality and the ability to react to previous interactions are other parts.
 
-I'm interested in understanding how different systems can work together to create a software character that has:
+I'm also deliberately experimenting with local AI because I want to understand what can realistically be done on normal consumer hardware without sending every interaction to a cloud service.
 
-* Memory
-* Context
-* Emotional state
-* Personality
-* Voice
-* Persistent interaction
+## Where I want to take it
 
-I'm also particularly interested in **local AI**, where these systems can run on the user's own hardware rather than requiring every interaction to be sent to a remote service.
+The first major goal is to turn Kriti into a proper desktop-pet AI.
 
----
+I'd like her to eventually be able to exist directly on the desktop, interact with the user, react to things happening around her and make use of the computer environment in useful ways.
 
-## Future Direction
+But the part I'm more interested in from a game-development perspective comes after that.
 
-### 🖥️ Desktop Pet AI
+I eventually want to build a game prototype using a game engine where a local LLM can work alongside normal game systems.
 
-The next major direction is turning Kriti into a more complete **desktop-pet AI**.
-
-The idea is for her to become a small interactive character that can live on the desktop, interact with the user, react to different situations, remember previous interactions, and eventually interact with parts of the computer environment.
-
----
-
-### 🎮 AI for Game Development
-
-This is the part I'm particularly interested in exploring long term.
-
-I eventually want to build a **game prototype using a game engine** where a local LLM can work alongside traditional game systems to influence NPC behaviour and situations.
-
-Instead of replacing normal game logic, the AI could provide another layer of interaction using information such as:
+For example, an NPC could have some combination of:
 
 ```text
-Player Actions
-      +
-NPC Memory
-      +
-Current Situation
-      +
-Emotional State
-      +
-Previous Interactions
-      ↓
-Local AI
-      ↓
-Context-dependent Response
+Previous interactions
+NPC memory
+Current situation
+Emotional state
+Player actions
 ```
 
-The goal is to experiment with game worlds where characters and situations can react more naturally to what the player actually does, rather than relying entirely on fixed dialogue and predetermined responses.
+and that information could be used by a local AI to produce a more context-dependent response.
 
-Kriti is currently my testing ground for understanding the underlying systems needed to explore this idea.
+I'm not trying to replace traditional game logic with an LLM. I want to experiment with where local AI can actually add something useful to a game.
 
----
+The goal is to see whether characters and situations can feel more reactive without having every possible interaction manually written beforehand.
 
-## Project Status
+Kriti is basically my testing ground for learning the systems that could eventually make that possible.
 
-🚧 **Active Development**
+## Current status
 
-Kriti is still an experimental project.
+Kriti is actively being developed.
 
-Some systems are functional, while others are being redesigned and expanded as I learn more about local LLMs, AI architecture, game development, and interactive character systems.
-
-The project will probably change quite a lot before reaching its long-term form.
-
----
-
-## Current Focus
+Some parts are already working, while others are still being redesigned and improved. The architecture will probably change quite a few times as I learn more.
 
 Right now I'm mainly working on:
 
-* Improving memory retrieval and context handling
+* Improving memory retrieval
+* Making context handling more useful
 * Expanding emotion detection
-* Improving the interaction between memory, emotion and personality
-* Building a better desktop interface
-* Exploring the desktop-pet concept
-* Learning how these systems could eventually translate into game development
+* Improving personality and character behaviour
+* Building the desktop-pet side of the project
+* Understanding how these systems could eventually be used in games
+
+## Long-term idea
+
+Kriti started as a local AI companion project.
+
+The longer-term goal is to explore the same ideas in game development and see what happens when AI characters have memory, context and emotional state that can actually affect how they interact with the player.
+
+There is still a lot to figure out.
+
+For now, I'm just building it and seeing where it goes.
 
 ---
 
-## Long-Term Idea
+Created by **Abhishek Kulkarni**
 
-The bigger idea behind Kriti is simple:
-
-> **Explore how local AI can be used to create software characters and, eventually, more reactive game worlds.**
-
-Kriti is the first experiment.
-
-The eventual destination is much closer to **game development**.
-
----
-
-## Creator
-
-**Abhishek Kulkarni**
-
-Computer Science student focused on:
-
-* Game Development
-* Unity & C#
-* Game Art & Design
-* Python
-* AI for Interactive Experiences
-
-This project is being developed as a personal exploration alongside my game-development work.
+Game Development | Unity & C# | Python | Game Art & Design | AI for Interactive Experiences
