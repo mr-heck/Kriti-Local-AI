@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="avatarBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#142f22" />
+      <stop offset="60%" stop-color="#0c1d15" />
+      <stop offset="100%" stop-color="#050e0a" />
+    </linearGradient>
+
+    <linearGradient id="creatureSkin" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#3d6b52" />
+      <stop offset="50%" stop-color="#284e3a" />
+      <stop offset="100%" stop-color="#183626" />
+    </linearGradient>
+
+    <linearGradient id="purpleCrest" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0aaff" />
+      <stop offset="50%" stop-color="#9d4edd" />
+      <stop offset="100%" stop-color="#5a189a" />
+    </linearGradient>
+
+    <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="30%" stop-color="#e0aaff" />
+      <stop offset="70%" stop-color="#9d4edd" />
+      <stop offset="100%" stop-color="#5a189a" />
+    </radialGradient>
+
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Circle with Ancient Stone & Moss Border -->
+  <circle cx="60" cy="60" r="58" fill="url(#avatarBg)" stroke="#52b788" stroke-width="2.5" />
+  <circle cx="60" cy="60" r="54" fill="none" stroke="#9d4edd" stroke-width="1" stroke-dasharray="4 3" opacity="0.75" />
+
+  <!-- Bioluminescent Prehistoric Crown Fronds (Arching back from head) -->
+  <g filter="url(#softGlow)">
+    <path d="M55,36 C52,18 36,12 24,14 C34,22 42,28 48,39 Z" fill="url(#purpleCrest)" />
+    <path d="M62,32 C65,14 55,6 40,8 C50,16 57,22 58,35 Z" fill="url(#purpleCrest)" />
+    <path d="M68,34 C78,16 72,8 58,9 C66,17 70,24 67,37 Z" fill="url(#purpleCrest)" />
+    <path d="M74,38 C90,22 88,14 76,14 C82,22 82,28 73,41 Z" fill="url(#purpleCrest)" />
+  </g>
+
+  <!-- Creature Head & Neck (Friendly, ancient, intelligent companion) -->
+  <!-- Neck -->
+  <path d="M42,75 Q38,105 26,116 L94,116 Q82,105 78,75 Z" fill="url(#creatureSkin)" />
+  <!-- Underbelly Warmth -->
+  <path d="M46,80 Q56,108 52,116 L68,116 Q64,108 74,80 Z" fill="#4d7c5f" opacity="0.6" />
+
+  <!-- Head Contour -->
+  <path d="M45,46 Q58,34 76,38 Q94,42 96,56 Q97,70 82,75 Q68,78 50,74 Q38,68 38,58 Q38,48 45,46 Z" fill="url(#creatureSkin)" />
+
+  <!-- Snout / Jaw -->
+  <path d="M80,52 Q97,52 98,60 Q96,68 82,69 Z" fill="#2d5841" />
+  <!-- Gentle Smile line -->
+  <path d="M78,63 Q88,64 94,60" stroke="#74c69d" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.9" />
+
+  <!-- Little Nostril -->
+  <ellipse cx="91" cy="56" rx="1.5" ry="1" fill="#142c1f" />
+
+  <!-- Bioluminescent Cheek Spores / Markings -->
+  <circle cx="64" cy="62" r="1.8" fill="#c77dff" opacity="0.8" />
+  <circle cx="68" cy="66" r="2.2" fill="#c77dff" opacity="0.9" />
+  <circle cx="73" cy="64" r="1.5" fill="#c77dff" opacity="0.8" />
+
+  <!-- Gentle Curious Eye -->
+  <ellipse cx="62" cy="50" rx="6.5" ry="7.5" fill="#08140e" />
+  <ellipse cx="62" cy="50" rx="5" ry="6" fill="url(#eyeGlow)" />
+  <!-- Pupil -->
+  <ellipse cx="62" cy="50" rx="2.5" ry="4" fill="#10031c" />
+  <!-- Catchlight Sparkle (Conveys warmth, wisdom and friendliness) -->
+  <circle cx="60.5" cy="47.5" r="1.8" fill="#ffffff" />
+  <circle cx="63.5" cy="52" r="0.8" fill="#ffffff" opacity="0.8" />
+
+  <!-- Subtle Moss/Leaf Brow -->
+  <path d="M54,43 Q62,40 70,44" stroke="#74c69d" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85" />
+</svg>

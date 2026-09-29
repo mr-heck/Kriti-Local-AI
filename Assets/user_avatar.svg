@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="userBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d2218" />
+      <stop offset="70%" stop-color="#1b140e" />
+      <stop offset="100%" stop-color="#0e0a07" />
+    </linearGradient>
+
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd166" />
+      <stop offset="50%" stop-color="#e29548" />
+      <stop offset="100%" stop-color="#ad5d24" />
+    </linearGradient>
+  </defs>
+
+  <!-- Carved Earthy Stone Outer Ring -->
+  <circle cx="60" cy="60" r="58" fill="url(#userBg)" stroke="#8c6747" stroke-width="2.5" />
+  <circle cx="60" cy="60" r="52" fill="none" stroke="#e29548" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.8" />
+
+  <!-- Amber Gem / Fossil Leaf Motif representing the human explorer/traveler -->
+  <path d="M60,24 C40,40 34,64 45,86 C54,100 66,100 75,86 C86,64 80,40 60,24 Z" fill="url(#amberGlow)" opacity="0.9" />
+  
+  <!-- Leaf Vein / Compass Needle -->
+  <path d="M60,28 L60,94" stroke="#4a2e13" stroke-width="2" stroke-linecap="round" />
+  <path d="M60,46 Q50,42 44,46" stroke="#4a2e13" stroke-width="1.6" fill="none" />
+  <path d="M60,58 Q50,54 44,59" stroke="#4a2e13" stroke-width="1.6" fill="none" />
+  <path d="M60,70 Q52,67 48,72" stroke="#4a2e13" stroke-width="1.6" fill="none" />
+  <path d="M60,46 Q70,42 76,46" stroke="#4a2e13" stroke-width="1.6" fill="none" />
+  <path d="M60,58 Q70,54 76,59" stroke="#4a2e13" stroke-width="1.6" fill="none" />
+  <path d="M60,70 Q68,67 72,72" stroke="#4a2e13" stroke-width="1.6" fill="none" />
+
+  <!-- Shimmer highlight -->
+  <ellipse cx="53" cy="38" rx="4" ry="7" fill="#fff" opacity="0.3" transform="rotate(-15 53 38)" />
+</svg>

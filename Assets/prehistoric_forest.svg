@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <!-- Sky & Atmosphere Gradients -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#04120c" />
+      <stop offset="40%" stop-color="#092418" />
+      <stop offset="70%" stop-color="#143e2b" />
+      <stop offset="100%" stop-color="#234a35" />
+    </linearGradient>
+
+    <radialGradient id="sunGlow" cx="65%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#ffe699" stop-opacity="0.35" />
+      <stop offset="35%" stop-color="#74c69d" stop-opacity="0.18" />
+      <stop offset="70%" stop-color="#1b4332" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#05140d" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Mountain Gradients -->
+    <linearGradient id="mountainFar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f2b20" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#163f30" stop-opacity="0.9" />
+    </linearGradient>
+
+    <linearGradient id="mountainMid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d241b" />
+      <stop offset="100%" stop-color="#081812" />
+    </linearGradient>
+
+    <!-- Mist Gradients -->
+    <linearGradient id="mistLayer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#95d5b2" stop-opacity="0" />
+      <stop offset="30%" stop-color="#b7e4c7" stop-opacity="0.12" />
+      <stop offset="50%" stop-color="#d8f3dc" stop-opacity="0.18" />
+      <stop offset="75%" stop-color="#95d5b2" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#74c69d" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Tree & Foliage Gradients -->
+    <linearGradient id="foliageDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1b4332" />
+      <stop offset="100%" stop-color="#081c14" />
+    </linearGradient>
+
+    <linearGradient id="foliageMid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d6a4f" />
+      <stop offset="100%" stop-color="#0d2b1f" />
+    </linearGradient>
+
+    <linearGradient id="fernGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#52b788" />
+      <stop offset="100%" stop-color="#1b4332" />
+    </linearGradient>
+
+    <!-- Purple Bioluminescence (Kriti accent) -->
+    <radialGradient id="purpleBloom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c77dff" stop-opacity="0.8" />
+      <stop offset="40%" stop-color="#9d4edd" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#7b2cbf" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- God Rays Filter -->
+    <linearGradient id="godRay" x1="40%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%" stop-color="#ffeaa7" stop-opacity="0.18" />
+      <stop offset="50%" stop-color="#74c69d" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#05140d" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Stone texture gradient -->
+    <linearGradient id="ancientStone" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3d372f" />
+      <stop offset="50%" stop-color="#25241f" />
+      <stop offset="100%" stop-color="#141713" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sky Base -->
+  <rect width="1920" height="1080" fill="url(#skyGrad)" />
+  <circle cx="1250" cy="320" r="700" fill="url(#sunGlow)" />
+
+  <!-- Distant Volcanic & Mountain Peaks -->
+  <path d="M-50,650 L120,480 L350,560 L580,410 L820,530 L1050,390 L1300,510 L1540,360 L1750,470 L1970,390 L2000,850 L-50,850 Z" 
+        fill="url(#mountainFar)" />
+
+  <!-- Mid-distance Ridge -->
+  <path d="M-50,720 L180,590 L420,680 L700,540 L960,630 L1220,520 L1490,640 L1720,530 L1950,620 L2000,950 L-50,950 Z" 
+        fill="url(#mountainMid)" opacity="0.85" />
+
+  <!-- Jungle Canopy Silhouette in the Distance -->
+  <g fill="#0b2017" opacity="0.75">
+    <ellipse cx="200" cy="620" rx="180" ry="90" />
+    <ellipse cx="380" cy="640" rx="160" ry="80" />
+    <ellipse cx="650" cy="610" rx="220" ry="110" />
+    <ellipse cx="890" cy="630" rx="190" ry="95" />
+    <ellipse cx="1150" cy="590" rx="230" ry="115" />
+    <ellipse cx="1420" cy="620" rx="210" ry="100" />
+    <ellipse cx="1700" cy="600" rx="250" ry="120" />
+  </g>
+
+  <!-- Mist Band 1 -->
+  <rect x="0" y="550" width="1920" height="180" fill="url(#mistLayer)" />
+
+  <!-- Majestic Sunbeams / Canopy God Rays -->
+  <polygon points="1200,0 1350,0 1700,1080 1450,1080" fill="url(#godRay)" opacity="0.7" />
+  <polygon points="1100,0 1220,0 1350,1080 1150,1080" fill="url(#godRay)" opacity="0.5" />
+  <polygon points="1280,0 1360,0 1900,1080 1750,1080" fill="url(#godRay)" opacity="0.4" />
+
+  <!-- Ancient Giant Conifers and Tree Trunks -->
+  <!-- Left Giant Ancient Tree Trunk -->
+  <path d="M-80,-50 Q40,400 60,1080 L180,1080 Q140,500 20,-50 Z" fill="#0c1711" />
+  <path d="M-20,120 Q50,200 130,220" stroke="#08100c" stroke-width="16" fill="none" stroke-linecap="round" />
+  <path d="M10,320 Q80,410 170,440" stroke="#08100c" stroke-width="12" fill="none" stroke-linecap="round" />
+  <!-- Hanging Vines from Left Tree -->
+  <path d="M70,180 Q100,350 85,550 Q75,700 95,850" stroke="#1b4332" stroke-width="4" fill="none" opacity="0.8" />
+  <path d="M110,210 Q90,400 120,620 Q140,780 115,920" stroke="#2d6a4f" stroke-width="3" fill="none" opacity="0.7" />
+
+  <!-- Right Giant Ancient Tree Trunk -->
+  <path d="M1980,-50 Q1880,350 1850,1080 L1740,1080 Q1800,450 1890,-50 Z" fill="#09140e" />
+  <path d="M1900,180 Q1810,240 1730,280" stroke="#07100b" stroke-width="14" fill="none" stroke-linecap="round" />
+  <path d="M1870,400 Q1800,480 1710,510" stroke="#07100b" stroke-width="10" fill="none" stroke-linecap="round" />
+  <!-- Hanging Vines from Right Tree -->
+  <path d="M1780,260 Q1750,420 1770,610 Q1790,750 1760,940" stroke="#1b4332" stroke-width="3.5" fill="none" opacity="0.75" />
+
+  <!-- Midground Tree Ferns (Left Side) -->
+  <g transform="translate(180, 520)">
+    <!-- Slender Curved Trunk -->
+    <path d="M40,380 Q35,200 50,0 Q65,200 70,380 Z" fill="#13241b" />
+    <!-- Giant Fern Fronds Arching Outward -->
+    <path d="M50,10 Q-30,-20 -140,-10 Q-60,40 45,25" fill="url(#foliageMid)" />
+    <path d="M50,0 Q-10,-60 -90,-120 Q-20,-30 45,15" fill="url(#foliageDark)" />
+    <path d="M55,-5 Q40,-90 50,-170 Q75,-70 58,10" fill="url(#foliageMid)" />
+    <path d="M60,0 Q120,-60 190,-110 Q110,-20 62,15" fill="url(#foliageDark)" />
+    <path d="M62,10 Q150,-20 230,-5 Q130,40 65,25" fill="url(#foliageMid)" />
+  </g>
+
+  <!-- Midground Tree Ferns (Right Side) -->
+  <g transform="translate(1600, 560)">
+    <path d="M30,360 Q20,180 40,0 Q55,180 50,360 Z" fill="#101e16" />
+    <path d="M40,5 Q-40,-30 -130,-15 Q-50,35 35,20" fill="url(#foliageMid)" />
+    <path d="M40,-5 Q10,-70 -60,-130 Q-5,-35 35,10" fill="url(#foliageDark)" />
+    <path d="M45,-8 Q45,-90 60,-160 Q70,-70 48,5" fill="url(#foliageMid)" />
+    <path d="M48,0 Q110,-55 180,-90 Q105,-15 50,15" fill="url(#foliageDark)" />
+  </g>
+
+  <!-- Mist Band 2 (Rolling low valley mist) -->
+  <rect x="0" y="720" width="1920" height="240" fill="url(#mistLayer)" opacity="0.85" />
+
+  <!-- Ancient Moss-Covered Megalith / Carved Stone Ruin (Center-Left) -->
+  <g transform="translate(240, 780)">
+    <path d="M0,260 L25,60 L140,30 L230,80 L260,260 Z" fill="url(#ancientStone)" />
+    <!-- Moss cap on stone -->
+    <path d="M15,80 Q70,40 140,25 Q210,45 240,90 Q190,110 130,95 Q60,115 15,80 Z" fill="#2d6a4f" opacity="0.9" />
+    <path d="M30,85 Q80,60 130,50 Q180,65 210,95" stroke="#52b788" stroke-width="4" fill="none" opacity="0.6" />
+    <!-- Faint Prehistoric Rune Carving on Stone -->
+    <path d="M100,120 L130,170 L160,120 M130,170 L130,220 M110,145 L150,145" stroke="#74c69d" stroke-width="3" fill="none" opacity="0.45" stroke-linecap="round" />
+  </g>
+
+  <!-- Another Ancient Moss Stone (Right side) -->
+  <g transform="translate(1420, 810)">
+    <path d="M20,240 L60,90 L180,50 L270,110 L290,240 Z" fill="url(#ancientStone)" />
+    <path d="M50,105 Q120,65 190,55 Q250,80 275,120 Q220,135 170,120 Q100,135 50,105 Z" fill="#2d6a4f" opacity="0.85" />
+    <!-- Bioluminescent Orchid growing on stone (Kriti's Purple Spark) -->
+    <ellipse cx="230" cy="115" rx="35" ry="35" fill="url(#purpleBloom)" />
+    <path d="M220,120 Q230,95 235,115 Q245,95 242,120 Q255,130 235,128 Q215,130 220,120 Z" fill="#c77dff" />
+    <circle cx="233" cy="118" r="4" fill="#f3e8ff" />
+  </g>
+
+  <!-- Giant Foreground Cretaceous Fern Fronds (Bottom Left) -->
+  <g transform="translate(-40, 760)">
+    <!-- Frond 1 -->
+    <path d="M0,320 Q120,220 280,180 Q380,160 490,190" stroke="#0e2418" stroke-width="12" fill="none" />
+    <path d="M0,320 Q120,220 280,180 Q380,160 490,190" stroke="#52b788" stroke-width="3" fill="none" />
+    <!-- Fern leaflets (stylized lush geometric fronds) -->
+    <path d="M100,240 Q110,180 150,195 Q130,230 115,245 Z" fill="url(#fernGlow)" />
+    <path d="M160,215 Q180,150 220,170 Q200,205 180,220 Z" fill="url(#fernGlow)" />
+    <path d="M220,198 Q250,130 295,150 Q270,185 245,200 Z" fill="url(#fernGlow)" />
+    <path d="M290,186 Q330,120 375,140 Q345,175 315,188 Z" fill="url(#fernGlow)" />
+    <path d="M360,180 Q405,120 445,145 Q415,175 385,185 Z" fill="url(#fernGlow)" />
+    <!-- Frond 2 (Arching lower) -->
+    <path d="M0,340 Q150,290 320,295 Q430,300 520,340" stroke="#091810" stroke-width="10" fill="none" />
+    <path d="M140,305 Q170,260 210,275 Q180,310 155,315 Z" fill="#2d6a4f" />
+    <path d="M220,300 Q260,250 300,265 Q270,305 240,310 Z" fill="#2d6a4f" />
+    <path d="M310,300 Q360,255 395,275 Q360,310 330,312 Z" fill="#2d6a4f" />
+  </g>
+
+  <!-- Giant Foreground Cretaceous Fern Fronds (Bottom Right) -->
+  <g transform="translate(1460, 750)">
+    <path d="M500,330 Q360,210 200,190 Q90,180 -20,220" stroke="#0e2418" stroke-width="12" fill="none" />
+    <path d="M500,330 Q360,210 200,190 Q90,180 -20,220" stroke="#52b788" stroke-width="3" fill="none" />
+    <path d="M380,240 Q370,180 330,195 Q350,230 365,245 Z" fill="url(#fernGlow)" />
+    <path d="M310,215 Q290,150 250,170 Q270,205 290,220 Z" fill="url(#fernGlow)" />
+    <path d="M240,198 Q210,130 165,150 Q190,185 215,200 Z" fill="url(#fernGlow)" />
+    <path d="M170,186 Q130,120 85,140 Q115,175 145,188 Z" fill="url(#fernGlow)" />
+  </g>
+
+  <!-- Glowing Bioluminescent Spores / Firefly Accents (Embedded static motes with purple & amber hues) -->
+  <circle cx="280" cy="460" r="3" fill="#ffeaa7" opacity="0.65" />
+  <circle cx="340" cy="430" r="2" fill="#c77dff" opacity="0.7" />
+  <circle cx="750" cy="520" r="3.5" fill="#74c69d" opacity="0.6" />
+  <circle cx="890" cy="480" r="2" fill="#ffeaa7" opacity="0.5" />
+  <circle cx="1120" cy="560" r="3" fill="#c77dff" opacity="0.7" />
+  <circle cx="1280" cy="490" r="2.5" fill="#74c69d" opacity="0.6" />
+  <circle cx="1580" cy="530" r="3" fill="#e0aaff" opacity="0.8" />
+  <circle cx="1660" cy="470" r="2" fill="#ffeaa7" opacity="0.5" />
+
+  <!-- Ground Vignette at the Very Bottom -->
+  <rect x="0" y="980" width="1920" height="100" fill="url(#foliageDark)" opacity="0.95" />
+</svg>

@@ -1,0 +1,1116 @@
+/* ==========================================================================
+   KRITI - PREHISTORIC LOST WORLD AI COMPANION
+   Natural Forest Edition: Rainforest leaves, moss, ferns & wet vegetation.
+   Lightweight, framework-free, optimized for low-end/mid-range PCs.
+   ========================================================================== */
+
+:root {
+  /* Background Image System: default background path */
+  --bg-image: url('../assets/kriti_background.png');
+
+  /* Base Jungle Darkness (Ancient Damp Soil & Deep Canopy) */
+  --jungle-darkest: #23063a;
+  --jungle-dark: #081a11;
+  --jungle-deep: #1c0e29;
+  --jungle-surface: rgba(33, 13, 50, 0.45);
+  --jungle-surface-solid: #0d2217;
+
+  /* Natural Forest Palette (Rainforest leaves, jungle moss, prehistoric ferns) */
+  /* NO neon, radioactive, or cyberpunk greens */
+  --moss-deep: #300d37;
+  --moss-mid: #3b2b54;
+  --moss-leaf: #3a6f4a;
+  --fern-forest: #774788;
+  --fern-rainforest: #5a9e6f;
+  --emerald-wet-leaf: #6f3f8f;
+  --leaf-pale: #b3d9bf;
+
+  /* Natural Forest Ambient Glows (Soft, diffuse, damp organic luminescence) */
+  --forest-glow-soft: rgba(71, 136, 91, 0.18);
+  --forest-glow-mid: rgba(90, 158, 111, 0.28);
+  --forest-glow-moss: rgba(43, 84, 56, 0.35);
+
+  /* Earthy Browns, Ancient Bark & Amber Stone */
+  --earth-dark: #1e150e;
+  --stone-base: #261f18;
+  --stone-rim: #453426;
+  --stone-highlight: #644b36;
+  --amber-gold: #cf8438;
+  --amber-soft: #eec17e;
+  --amber-glow: rgba(207, 132, 56, 0.25);
+
+  /* Kriti Signature Purple (Bioluminescent Amethyst / Orchid accents) */
+  --kriti-purple-deep: #4c1d7a;
+  --kriti-purple: #8344b8;
+  --kriti-purple-light: #ab6ad8;
+  --kriti-purple-soft: #d3a4f4;
+  --kriti-glow: rgba(131, 68, 184, 0.22);
+  --kriti-glow-strong: rgba(171, 106, 216, 0.38);
+
+  /* Text Colors */
+  --text-primary: #e6f3eb;
+  --text-secondary: #abc4b3;
+  --text-muted: #6f8a76;
+  --text-amber: #f7d69b;
+
+  /* Fonts */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Cinzel", "Georgia", "Palatino Linotype", serif;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset & Box Model */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  background-color: var(--jungle-darkest);
+  color: var(--text-primary);
+  line-height: 1.5;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Background Image System & Atmospheric Layers
+   ========================================================================== */
+#app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Dynamic Background Layer */
+.background-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/kriti_background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transition: background-image 0.4s ease;
+}
+
+/* Dark Readability Overlay: subtle gradient preserving text clarity */
+.readability-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 38%, rgba(5, 15, 10, 0.15) 0%, rgba(2, 7, 5, 0.35) 92%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Mist Drift Layers (Hardware Accelerated via translate3d) */
+.mist-layer {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.28;
+  will-change: transform;
+}
+
+.mist-1 {
+  background: radial-gradient(ellipse at 30% 60%, rgba(90, 158, 111, 0.16) 0%, rgba(58, 111, 74, 0.06) 45%, transparent 70%);
+  animation: mistDrift1 60s linear infinite;
+}
+
+.mist-2 {
+  background: radial-gradient(ellipse at 70% 40%, rgba(171, 106, 216, 0.08) 0%, rgba(71, 136, 91, 0.05) 40%, transparent 65%);
+  animation: mistDrift2 80s linear infinite alternate;
+}
+
+@keyframes mistDrift1 {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes mistDrift2 {
+  0% { transform: translate3d(-30%, 12px, 0); }
+  100% { transform: translate3d(10%, -12px, 0); }
+}
+
+/* Floating Spores Canvas */
+#effects-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* UI Content Frame */
+.ui-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 14px 20px 16px 20px;
+}
+
+/* Future-Ready: Memory Notifications Dock */
+.memory-notification-dock {
+  position: absolute;
+  top: 76px;
+  right: 24px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.memory-toast {
+  background: linear-gradient(135deg, rgba(28, 20, 14, 0.92) 0%, rgba(15, 26, 19, 0.95) 100%);
+  border: 1px solid var(--amber-gold);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 14px var(--amber-glow);
+  color: var(--text-primary);
+  font-size: 0.84rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  animation: toastFadeIn 0.3s ease-out;
+}
+
+@keyframes toastFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Top Bar - Ancient Carved Stone Styling
+   ========================================================================== */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: linear-gradient(180deg, rgba(14, 32, 22, 0.88) 0%, rgba(8, 20, 14, 0.92) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(71, 136, 91, 0.3);
+  border-radius: 16px;
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  margin-bottom: 14px;
+}
+
+/* Left: Identity */
+.identity-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Customizable Avatar Crest (Clickable Frame with Soft Natural Glow) */
+.amber-crest {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%; /* Clean circular frame */
+  background: linear-gradient(135deg, #2a1e14 0%, #120d09 100%);
+  border: 2px solid var(--amber-gold);
+  box-shadow: 0 0 14px var(--amber-glow), inset 0 0 8px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.amber-crest:hover {
+  transform: scale(1.05);
+  border-color: var(--amber-soft);
+  box-shadow: 0 0 20px rgba(238, 193, 126, 0.4), inset 0 0 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Avatar Image auto-cropped & centered */
+.amber-crest img, .message-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Hover overlay badge on avatar frame */
+.avatar-hover-badge {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 22, 15, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  border-radius: 50%;
+}
+
+.amber-crest:hover .avatar-hover-badge {
+  opacity: 1;
+}
+
+.avatar-hover-badge svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--amber-soft);
+}
+
+/* Future-ready: Animated Avatar State Frame */
+.avatar-animated-frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-animated-frame.state-speaking {
+  animation: avatarPulseGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes avatarPulseGlow {
+  0%, 100% { box-shadow: 0 0 14px var(--amber-glow); }
+  50% { box-shadow: 0 0 22px rgba(90, 158, 111, 0.5); }
+}
+
+.identity-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.identity-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 0 0 18px var(--kriti-glow);
+}
+
+.identity-name span.purple-glow {
+  color: var(--kriti-purple-light);
+}
+
+.identity-subtitle {
+  font-size: 0.76rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--fern-rainforest);
+  opacity: 0.9;
+}
+
+/* Center: Status Area */
+.status-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  background: rgba(6, 17, 11, 0.75);
+  border: 1px solid rgba(71, 136, 91, 0.28);
+  border-radius: 30px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+  transition: border-color var(--transition-fast);
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--emerald-wet-leaf);
+  box-shadow: 0 0 10px var(--forest-glow-mid);
+  position: relative;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Pulsing Status Animation (Gentle, Natural) */
+.status-indicator::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0.35;
+  animation: statusPulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes statusPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Status variants: Soft Natural Colors */
+.status-area[data-status="Online"] .status-indicator {
+  background-color: var(--emerald-wet-leaf);
+  color: var(--emerald-wet-leaf);
+  box-shadow: 0 0 10px var(--forest-glow-mid);
+}
+
+.status-area[data-status="Thinking"] .status-indicator {
+  background-color: var(--kriti-purple-light);
+  color: var(--kriti-purple-light);
+  box-shadow: 0 0 12px var(--kriti-glow-strong);
+}
+
+.status-area[data-status="Listening"] .status-indicator {
+  background-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+/* Future-Ready: Speaking state */
+.status-area[data-status="Speaking"] .status-indicator {
+  background-color: var(--amber-soft);
+  color: var(--amber-soft);
+  box-shadow: 0 0 12px var(--amber-glow);
+}
+
+.status-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+/* Right: Header Controls */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stone-btn-sm {
+  background: linear-gradient(135deg, rgba(32, 24, 18, 0.75) 0%, rgba(18, 14, 10, 0.88) 100%);
+  border: 1px solid var(--stone-highlight);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.stone-btn-sm:hover {
+  background: linear-gradient(135deg, rgba(45, 34, 24, 0.88) 0%, rgba(24, 18, 13, 0.95) 100%);
+  color: var(--amber-soft);
+  border-color: var(--amber-gold);
+  transform: translateY(-1px);
+}
+
+.stone-btn-sm.active {
+  border-color: var(--fern-rainforest);
+  color: var(--leaf-pale);
+  background: rgba(16, 42, 28, 0.85);
+}
+
+/* ==========================================================================
+   Main Chat Area - Jungle Glassmorphism
+   ========================================================================== */
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--jungle-surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(1px);
+  border: 1px solid rgba(71, 136, 91, 0.24);
+  border-radius: 20px;
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Messages Scroller */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px 24px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  scroll-behavior: smooth;
+  user-select: text;
+}
+
+/* Custom Prehistoric Moss & Stone Scrollbar */
+.messages-container::-webkit-scrollbar {
+  width: 7px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: rgba(4, 12, 8, 0.35);
+  border-radius: 8px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--moss-mid) 0%, var(--stone-highlight) 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(71, 136, 91, 0.2);
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: var(--fern-forest);
+}
+
+/* Message Entry Container */
+.message-entry {
+  display: flex;
+  gap: 12px;
+  max-width: 82%;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: messageEntrance 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes messageEntrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* User Message (Right Aligned - Earthy Moss Stone Bubble) */
+.message-entry.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* Kriti Message (Left Aligned - Deep Canopy Bubble with Orchid / Fern accents) */
+.message-entry.kriti {
+  align-self: flex-start;
+}
+
+/* Message Avatar */
+.message-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Circular frame */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.message-entry.kriti .message-avatar {
+  background: linear-gradient(135deg, #0e2419 0%, #06120c 100%);
+  border-color: var(--kriti-purple);
+  box-shadow: 0 0 14px var(--kriti-glow);
+}
+
+.message-entry.user .message-avatar {
+  background: linear-gradient(135deg, #261c14 0%, #120d09 100%);
+  border-color: var(--amber-gold);
+  box-shadow: 0 0 12px var(--amber-glow);
+}
+
+/* Message Content Bubble */
+.message-bubble {
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  position: relative;
+  word-break: break-word;
+}
+
+/* Kriti Bubble Styling */
+.message-entry.kriti .message-bubble {
+  background: linear-gradient(145deg, rgba(12, 30, 21, 0.88) 0%, rgba(18, 38, 28, 0.92) 100%);
+  border: 1px solid rgba(131, 68, 184, 0.32);
+  border-bottom-left-radius: 4px;
+  color: var(--text-primary);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(171, 106, 216, 0.12);
+}
+
+/* User Bubble Styling: Warm, Natural Rainforest Moss */
+.message-entry.user .message-bubble {
+  background: linear-gradient(145deg, rgba(35, 68, 48, 0.84) 0%, rgba(22, 48, 33, 0.92) 100%);
+  border: 1px solid rgba(71, 136, 91, 0.35);
+  border-bottom-right-radius: 4px;
+  color: #ffffff;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Sender metadata */
+.message-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.message-sender {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.message-entry.kriti .message-sender {
+  color: var(--kriti-purple-soft);
+}
+
+.message-entry.user .message-sender {
+  color: var(--amber-soft);
+}
+
+.message-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Rich Text Formatting inside Messages */
+.message-bubble p {
+  margin-bottom: 8px;
+}
+.message-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.message-bubble strong {
+  color: var(--fern-rainforest);
+  font-weight: 600;
+}
+
+.message-entry.kriti .message-bubble strong {
+  color: var(--kriti-purple-soft);
+}
+
+.message-bubble code {
+  font-family: Consolas, "Courier New", monospace;
+  background: rgba(4, 12, 8, 0.75);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(71, 136, 91, 0.28);
+  font-size: 0.88em;
+  color: #f7d69b;
+}
+
+.message-bubble pre {
+  background: rgba(4, 12, 8, 0.88);
+  border: 1px solid rgba(71, 136, 91, 0.28);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  overflow-x: auto;
+}
+
+.message-bubble pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.message-bubble ul, .message-bubble ol {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+.message-bubble li {
+  margin-bottom: 4px;
+}
+
+/* Typing Indicator (Bioluminescent Spores Wave) */
+.typing-indicator-container {
+  display: none;
+  align-self: flex-start;
+  gap: 12px;
+  max-width: 200px;
+  margin-top: -6px;
+}
+
+.typing-indicator-container.visible {
+  display: flex;
+}
+
+.typing-bubble {
+  background: rgba(12, 30, 21, 0.88);
+  border: 1px solid rgba(131, 68, 184, 0.32);
+  border-radius: 18px 18px 18px 4px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 16px var(--kriti-glow);
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--kriti-purple-light);
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+    box-shadow: 0 0 8px var(--kriti-purple);
+  }
+}
+
+/* Future-Ready: Typing Animation Streaming Cursor */
+.streaming-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 14px;
+  background-color: var(--kriti-purple-light);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: cursorBlink 0.9s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Starter Prompts Bar */
+.starter-prompts {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 14px 24px;
+  overflow-x: auto;
+  user-select: none;
+}
+
+.starter-prompts::-webkit-scrollbar {
+  height: 4px;
+}
+.starter-prompts::-webkit-scrollbar-thumb {
+  background: var(--moss-mid);
+  border-radius: 4px;
+}
+
+.prompt-chip {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(16, 40, 28, 0.72) 0%, rgba(10, 26, 18, 0.82) 100%);
+  border: 1px solid rgba(71, 136, 91, 0.3);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prompt-chip:hover {
+  background: linear-gradient(135deg, rgba(26, 62, 44, 0.88) 0%, rgba(14, 38, 26, 0.95) 100%);
+  border-color: var(--fern-forest);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--forest-glow-soft);
+}
+
+.prompt-chip span.rune {
+  color: var(--amber-soft);
+}
+
+/* ==========================================================================
+   Input Area - Carved Stone and Jungle Dock
+   ========================================================================== */
+.input-dock {
+  margin-top: 14px;
+  background: linear-gradient(180deg, rgba(14, 32, 22, 0.9) 0%, rgba(8, 20, 14, 0.95) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(71, 136, 91, 0.32);
+  border-radius: 18px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  position: relative;
+}
+
+/* Moss Rim along input dock */
+.input-dock::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--fern-forest) 50%, transparent 100%);
+  opacity: 0.4;
+}
+
+/* Future-Ready: Voice Indicator Dock (Hidden placeholder) */
+.voice-indicator-dock {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  height: 24px;
+}
+
+.voice-indicator-dock.active {
+  display: flex;
+}
+
+.voice-wave-bar {
+  width: 3px;
+  height: 8px;
+  background: #38bdf8;
+  border-radius: 3px;
+  animation: voiceBarWave 1.2s infinite ease-in-out alternate;
+}
+
+.voice-wave-bar:nth-child(2) { animation-delay: 0.15s; height: 16px; }
+.voice-wave-bar:nth-child(3) { animation-delay: 0.3s; height: 22px; }
+.voice-wave-bar:nth-child(4) { animation-delay: 0.45s; height: 12px; }
+.voice-wave-bar:nth-child(5) { animation-delay: 0.6s; height: 18px; }
+
+@keyframes voiceBarWave {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1.3); }
+}
+
+/* Input text container */
+.input-field-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#user-input {
+  width: 100%;
+  max-height: 140px;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: rgba(5, 15, 10, 0.8);
+  border: 1px solid rgba(71, 136, 91, 0.25);
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  user-select: text;
+}
+
+#user-input::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+#user-input:focus {
+  border-color: var(--fern-forest);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 12px var(--forest-glow-soft);
+}
+
+/* Action Buttons Container */
+.input-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Carved Stone Buttons */
+.carved-btn {
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #32251c 0%, #1a130e 100%);
+  border: 1.5px solid var(--stone-highlight);
+  color: var(--amber-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.carved-btn:hover {
+  background: linear-gradient(135deg, #443224 0%, #231912 100%);
+  border-color: var(--amber-gold);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.45),
+    0 0 14px var(--amber-glow);
+}
+
+.carved-btn:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Icon-only Carved Button (Microphone) */
+.carved-btn-icon {
+  width: 44px;
+  padding: 0;
+}
+
+/* Mic Active Listening State */
+.carved-btn-icon.listening {
+  background: linear-gradient(135deg, #103240 0%, #081a22 100%);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+  animation: micPulse 1.6s infinite;
+}
+
+@keyframes micPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Send Button Natural Rainforest & Amber Accent */
+.send-btn {
+  background: linear-gradient(135deg, #18422a 0%, #0d2417 100%);
+  border-color: var(--moss-leaf);
+  color: #ffffff;
+}
+
+.send-btn:hover {
+  background: linear-gradient(135deg, #225a39 0%, #123522 100%);
+  border-color: var(--fern-forest);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.45),
+    0 0 16px var(--forest-glow-mid);
+}
+
+.send-btn svg, .carved-btn-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   Background & Avatar Switcher Modals
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 10, 6, 0.78);
+  backdrop-filter: blur(1px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.stone-modal {
+  background: linear-gradient(180deg, #10241a 0%, #08150f 100%);
+  border: 1.5px solid var(--stone-highlight);
+  border-radius: 18px;
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), 0 0 25px var(--forest-glow-soft);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--amber-soft);
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.close-btn:hover { color: #ffffff; }
+
+.bg-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bg-option-card {
+  border: 1.5px solid rgba(71, 136, 91, 0.25);
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  background: rgba(5, 14, 9, 0.65);
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.bg-option-card:hover, .bg-option-card.active {
+  border-color: var(--fern-forest);
+  background: rgba(14, 38, 25, 0.65);
+  transform: translateY(-2px);
+}
+
+.bg-option-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 6px;
+}
+
+.custom-url-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(3, 10, 6, 0.85);
+  border: 1px solid rgba(71, 136, 91, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.88rem;
+  margin-top: 8px;
+}
+
+/* Upload Action Button inside modal */
+.upload-action-box {
+  background: rgba(4, 12, 8, 0.7);
+  border: 1.5px dashed rgba(71, 136, 91, 0.35);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  margin-bottom: 14px;
+  transition: border-color var(--transition-fast);
+}
+
+.upload-action-box:hover {
+  border-color: var(--fern-rainforest);
+}
+
+/* ==========================================================================
+   Responsive Optimizations
+   ========================================================================== */
+@media (max-width: 768px) {
+  .ui-frame {
+    padding: 8px 10px;
+  }
+  
+  .top-bar {
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
+  
+  .identity-name {
+    font-size: 1.2rem;
+  }
+  
+  .identity-subtitle {
+    font-size: 0.68rem;
+  }
+
+  .amber-crest {
+    width: 38px;
+    height: 38px;
+  }
+
+  .status-area {
+    padding: 4px 10px;
+  }
+  
+  .message-entry {
+    max-width: 92%;
+  }
+
+  .carved-btn span.btn-text {
+    display: none;
+  }
+
+  .carved-btn {
+    padding: 0 12px;
+  }
+}

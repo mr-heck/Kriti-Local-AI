@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kriti - Creative AI Companion</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Root Container -->
+  <div id="app-container">
+    
+    <!-- 1. Background System: Changeable via variable / localStorage -->
+    <div class="background-layer" id="background-layer"></div>
+
+    <!-- 2. Dark Readability Overlay for Contrast -->
+    <div class="readability-overlay"></div>
+
+    <!-- 3. Prehistoric Mist Drift Layers (Hardware accelerated) -->
+    <div class="mist-layer mist-1"></div>
+    <div class="mist-layer mist-2"></div>
+
+    <!-- 4. Floating Spores, Pollen & Fireflies Canvas -->
+    <canvas id="effects-canvas"></canvas>
+
+    <!-- Main UI Frame -->
+    <div class="ui-frame">
+      
+      <!-- Future-Ready: Memory Notifications Dock -->
+      <div id="memory-notification-dock" class="memory-notification-dock" aria-live="polite"></div>
+
+      <!-- Top Bar: Prehistoric Amber & Carved Stone Header -->
+      <header class="top-bar">
+        <!-- Identity: Kriti - Creative AI Companion with Customizable Avatar -->
+        <div class="identity-section">
+          <!-- Circular Frame Avatar with Glow Effects (Clickable to change image) -->
+          <div class="amber-crest" id="header-avatar-crest" title="Click to Change Kriti's Avatar (PNG, JPG, WEBP)">
+            <div class="avatar-animated-frame state-idle" id="avatar-animated-frame">
+              <img id="header-avatar-img" src="assets/kriti_avatar.png" alt="Kriti Avatar Crest">
+            </div>
+            <!-- Subtle hover badge indicator -->
+            <div class="avatar-hover-badge" title="Upload new avatar">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="identity-text">
+            <h1 class="identity-name">
+              Kriti <span class="purple-glow">✦</span>
+            </h1>
+            <span class="identity-subtitle">Creative AI Companion</span>
+          </div>
+        </div>
+
+        <!-- Status Area: Displays Online / Thinking / Listening / Speaking -->
+        <div class="status-area" id="status-badge" data-status="Online" title="System Status: Online">
+          <div class="status-indicator" id="status-dot"></div>
+          <span class="status-label" id="status-text">Online</span>
+        </div>
+
+        <!-- Header Actions: Avatar, Wallpaper, Eco Mode, Clear Chat -->
+        <div class="header-actions">
+          <button class="stone-btn-sm" id="avatar-picker-btn" title="Choose Avatar Image (PNG, JPG, WEBP)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            <span class="btn-text">Avatar</span>
+          </button>
+
+          <button class="stone-btn-sm" id="bg-picker-btn" title="Change Lost World Background">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+            </svg>
+            <span class="btn-text">Wallpaper</span>
+          </button>
+          
+          <button class="stone-btn-sm" id="eco-mode-btn" title="Toggle Low PC Performance / Eco Mode (Disables mist & particles)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+            </svg>
+            <span class="btn-text">Eco Mode</span>
+          </button>
+
+          <button class="stone-btn-sm" id="clear-chat-btn" title="Clear Ancient Chronicle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+            </svg>
+            <span class="btn-text">Clear</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Chat Area: Jungle Glassmorphism & Scrolling Window -->
+      <main class="chat-window">
+        <!-- Message list scroller -->
+        <div class="messages-container" id="chat-messages">
+          <!-- Initial Welcome from Kriti -->
+          <div class="message-entry kriti">
+            <div class="message-avatar">
+              <img src="assets/kriti_avatar.png" alt="Kriti" class="kriti-msg-avatar">
+            </div>
+            <div class="message-bubble">
+              <div class="message-meta">
+                <span class="message-sender">Kriti</span>
+                <span class="message-time" id="welcome-time">Ancient Dawn</span>
+              </div>
+              <p>Greetings, traveler of modern times. 🌿</p>
+              <p>I am <strong>Kriti</strong>, your creative companion from the hidden valleys of the lost Jurassic world. The mist is clear, the ancient ferns are humming with energy, and my thoughts are open to your ideas.</p>
+              <p>What shall we imagine, explore, or build together today?</p>
+            </div>
+          </div>
+
+          <!-- Typing Indicator (Active when status is Thinking) -->
+          <div class="typing-indicator-container" id="typing-indicator">
+            <div class="message-avatar">
+              <img src="assets/kriti_avatar.png" alt="Kriti" class="kriti-msg-avatar">
+            </div>
+            <div class="typing-bubble">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Starter Prompts Bar -->
+        <div class="starter-prompts" id="starter-prompts">
+          <div class="prompt-chip" data-prompt="Tell me about the secret ancient valleys you explore.">
+            <span class="rune">✦</span> Explore the Lost Valley
+          </div>
+          <div class="prompt-chip" data-prompt="Help me write a creative adventure story set in a prehistoric era.">
+            <span class="rune">✦</span> Prehistoric Story Idea
+          </div>
+          <div class="prompt-chip" data-prompt="What creative instincts make you unique as an AI companion?">
+            <span class="rune">✦</span> Kriti's Creature Instincts
+          </div>
+          <div class="prompt-chip" data-prompt="Compose a short poem inspired by giant ferns and twilight mist.">
+            <span class="rune">✦</span> Misty Jungle Poem
+          </div>
+        </div>
+      </main>
+
+      <!-- Input Area: Carved Stone and Jungle Elements Dock -->
+      <footer class="input-dock">
+        <!-- Textarea input -->
+        <div class="input-field-wrapper">
+          <textarea 
+            id="user-input" 
+            placeholder="Whisper to Kriti across the misty canopy... (Enter to send, Shift+Enter for newline)"
+            rows="1"
+          ></textarea>
+        </div>
+
+        <!-- Future-Ready: Voice Indicator Dock -->
+        <div class="voice-indicator-dock" id="voice-indicator-dock">
+          <span class="voice-wave-bar"></span>
+          <span class="voice-wave-bar"></span>
+          <span class="voice-wave-bar"></span>
+          <span class="voice-wave-bar"></span>
+          <span class="voice-wave-bar"></span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="input-actions">
+          <!-- Microphone Button Placeholder (Toggle Listening state) -->
+          <button class="carved-btn carved-btn-icon" id="mic-btn" title="Voice Input (Toggles Listening status)">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+            </svg>
+          </button>
+
+          <!-- Send Button: Carved Stone with prehistoric leaf/rune glyph -->
+          <button class="carved-btn send-btn" id="send-btn" title="Send message to Kriti">
+            <svg viewBox="0 0 24 24">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+            <span class="btn-text">Send</span>
+          </button>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Hidden File Inputs for Local Image Selection -->
+  <input type="file" id="avatar-file-input" accept="image/png, image/jpeg, image/webp" style="display: none;">
+  <input type="file" id="bg-file-input" accept="image/png, image/jpeg, image/webp" style="display: none;">
+
+  <!-- Background Wallpaper Switcher Modal -->
+  <div class="modal-overlay" id="bg-modal">
+    <div class="stone-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Lost World Vistas</h3>
+        <button class="close-btn" id="modal-close-btn">&times;</button>
+      </div>
+
+      <!-- Local File Upload Feature -->
+      <div class="upload-action-box">
+        <p style="font-size: 0.85rem; color: var(--text-primary); margin-bottom: 8px;">
+          🌿 Select a local photo as your chat background:
+        </p>
+        <button class="carved-btn" id="upload-local-bg-btn" style="height: 38px; margin: 0 auto; font-size: 0.84rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+          </svg>
+          Upload Local Image (PNG, JPG, WEBP)
+        </button>
+      </div>
+
+      <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 10px;">
+        Or choose a natural prehistoric vista preset:
+      </p>
+
+      <div class="bg-options-grid">
+        <div class="bg-option-card active" data-bg="assets/kriti_background.png">
+          <div style="height: 52px; background: linear-gradient(135deg, #0e291b, #1d462f); border-radius: 6px;"></div>
+          <div class="bg-option-title">Jurassic Canopy (Default)</div>
+        </div>
+        <div class="bg-option-card" data-bg="misty_amber">
+          <div style="height: 52px; background: linear-gradient(135deg, #2b1c11, #0e2318); border-radius: 6px;"></div>
+          <div class="bg-option-title">Amber Twilight</div>
+        </div>
+        <div class="bg-option-card" data-bg="deep_emerald">
+          <div style="height: 52px; background: linear-gradient(135deg, #041009, #143525); border-radius: 6px;"></div>
+          <div class="bg-option-title">Deep Fern Glen</div>
+        </div>
+        <div class="bg-option-card" data-bg="orchid_cavern">
+          <div style="height: 52px; background: linear-gradient(135deg, #1f0b2e, #0c2016); border-radius: 6px;"></div>
+          <div class="bg-option-title">Bioluminescent Grotto</div>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Custom Wallpaper URL or local file path:</label>
+        <input type="text" id="custom-bg-input" class="custom-url-input" placeholder="e.g. https://... or C:/path/to/forest.jpg">
+      </div>
+
+      <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+        <button class="stone-btn-sm" id="reset-bg-btn" style="font-size: 0.78rem;">Reset to Default</button>
+        <button class="carved-btn" id="apply-custom-bg" style="font-size: 0.82rem; height: 36px;">Apply Vista</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/effects.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
